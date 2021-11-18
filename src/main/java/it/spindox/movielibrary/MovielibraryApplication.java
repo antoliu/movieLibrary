@@ -1,5 +1,6 @@
 package it.spindox.movielibrary;
 
+import com.google.common.collect.Sets;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,14 +30,15 @@ public class MovielibraryApplication {
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(this.apiInfo())
-				.useDefaultResponseMessages(false);
+				.useDefaultResponseMessages(false)
+				.protocols(Sets.newHashSet("HTTP"));
 	}
 
 	private ApiInfo apiInfo() {
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 		apiInfoBuilder.title("MOVIE LIBRARY");
 		apiInfoBuilder.description("REST API for a Movie Library");
-		apiInfoBuilder.contact(new Contact("Antonio Liuzzi", "www.antonioliuzzi.it", "antonio.liuzzi@spindox.it"));
+		apiInfoBuilder.contact(new Contact("Antonio Liuzzi", "","antonio.liuzzi@spindox.it"));
 		apiInfoBuilder.version("1.0.0");
 		apiInfoBuilder.license("GNU GENERAL PUBLIC LICENSE, Version 3");
 		apiInfoBuilder.licenseUrl("https://www.gnu.org/licenses/gpl-3.0.en.html");
