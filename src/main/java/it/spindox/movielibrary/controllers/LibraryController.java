@@ -26,7 +26,7 @@ public class LibraryController {
     @GetMapping("/movies")
     @ApiOperation(value = "Get Movies", notes = "Get all movies from repository")
     @ApiResponses(value={
-            @ApiResponse(code = 200, message = "Ok", response = Movie.class),
+            @ApiResponse(code = 200, message = "Ok", response = Collection.class),
             @ApiResponse(code = 404, message = "Empty repository", response = ErrorResponse.class)
     })
     public ResponseEntity<Collection<Movie>> getAllMovies() throws RepositoryException {
@@ -39,7 +39,7 @@ public class LibraryController {
             @ApiResponse(code = 200, message = "Ok", response = String.class),
             @ApiResponse(code = 400, message = "Field not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<String> addMovie(@ApiParam(value = "Movie to be inserted", required = true) @RequestBody Movie movie) throws FieldsException {
+    public ResponseEntity<String> addMovie(@ApiParam(value="Movie to be inserted", required=true) @RequestBody Movie movie) throws FieldsException {
         return service.addMovie(movie);
     }
 
@@ -49,7 +49,7 @@ public class LibraryController {
             @ApiResponse(code = 200, message = "Ok", response = String.class),
             @ApiResponse(code = 400, message = "Body not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<String> addMovies(@ApiParam(value = "List of movies to be inserted", required = true) @RequestBody Collection<Movie> movies) throws FieldsException {
+    public ResponseEntity<String> addMovies(@ApiParam(value="List of movies to be inserted", required=true) @RequestBody Collection<Movie> movies) throws FieldsException {
         return service.addMovies(movies);
     }
 
@@ -59,7 +59,7 @@ public class LibraryController {
             @ApiResponse(code = 200, message = "Ok", response = Movie.class),
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class)
     })
-    public ResponseEntity<Movie> getMovie(@ApiParam(value = "ID to be searched", required = true) @PathVariable int id) throws MovieException, RepositoryException {
+    public ResponseEntity<Movie> getMovie(@ApiParam(name="id", value="ID to be searched", required=true, example="1") @PathVariable int id) throws MovieException, RepositoryException {
         return service.getMovie(id);
     }
 
@@ -70,7 +70,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class),
             @ApiResponse(code = 400, message = "Field title not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<Collection<Movie>> getMovieByTitle(@ApiParam(value = "Title to be searched", required = true) @PathVariable String title) throws MovieException, RepositoryException {
+    public ResponseEntity<Collection<Movie>> getMovieByTitle(@ApiParam(value="Title to be searched", required=true) @PathVariable String title) throws MovieException, RepositoryException {
         return service.getMovieByTitle(title);
     }
 
@@ -81,7 +81,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class),
             @ApiResponse(code = 400, message = "Field director not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<Collection<Movie>> getMovieByDirector(@ApiParam(value = "Director to be searched", required = true) @PathVariable String director) throws MovieException, RepositoryException {
+    public ResponseEntity<Collection<Movie>> getMovieByDirector(@ApiParam(value="Director to be searched", required=true) @PathVariable String director) throws MovieException, RepositoryException {
         return service.getMovieByDirector(director);
     }
 
@@ -91,7 +91,7 @@ public class LibraryController {
             @ApiResponse(code = 200, message = "Ok", response = String.class),
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class)
     })
-    public ResponseEntity<String> deleteMovie(@ApiParam(value = "ID to be deleted", required = true) @PathVariable int id) throws MovieException, RepositoryException {
+    public ResponseEntity<String> deleteMovie(@ApiParam(name="id", value="ID to be deleted", required=true, example="1") @PathVariable int id) throws MovieException, RepositoryException {
         return service.deleteMovie(id);
     }
 
@@ -102,7 +102,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class),
             @ApiResponse(code = 400, message = "Field not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<String> updateMovie(@ApiParam(value = "ID to be updated", required = true) @PathVariable int id, @ApiParam(value = "Movie with updated fields", required = true) @RequestBody Movie movie) throws FieldsException, MovieException, RepositoryException {
+    public ResponseEntity<String> updateMovie(@ApiParam(name="id", value="ID to be updated", required=true, example="1") @PathVariable int id, @ApiParam(value = "Movie with updated fields", required = true) @RequestBody Movie movie) throws FieldsException, MovieException, RepositoryException {
         return service.updateMovie(id, movie, false);
     }
 
@@ -113,7 +113,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Movie not found / Empty Repository", response = ErrorResponse.class),
             @ApiResponse(code = 400, message = "Field not valid", response = ErrorResponse.class)
     })
-    public ResponseEntity<String> patchUpdateMovie(@ApiParam(value = "ID to be updated", required = true) @PathVariable int id, @ApiParam(value = "Movie with updated fields", required = true) @RequestBody Movie movie) throws MovieException, RepositoryException, FieldsException {
+    public ResponseEntity<String> patchUpdateMovie(@ApiParam(name="id", value="ID to be updated", required=true, example="1") @PathVariable int id, @ApiParam(value = "Movie with updated fields", required = true) @RequestBody Movie movie) throws MovieException, RepositoryException, FieldsException {
         return service.updateMovie(id, movie, true);
     }
 

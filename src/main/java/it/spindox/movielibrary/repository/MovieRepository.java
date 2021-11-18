@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public class MovieRepository {
     /**
      * Checks if any field in the <code>Movie</code> is <code>null</code> or empty. If yes, throws a <code>FieldException</code>
      * @param movie     The <strong>movie</strong> to be checked
-     * @throws FieldsException
+     * @throws FieldsException if the title or the director fields are null or empty or blank.
      */
     public void checkFields(Movie movie) throws FieldsException {
         String title = movie.getTitle();
@@ -61,6 +62,7 @@ public class MovieRepository {
     /**
      * Returns a <code>Collection</code> that contains all the Movies object contained in the repository map.
      * @return Returns a <code>Collection</code> that contains all the Movies object contained in the repository map.
+     * @throws RepositoryException if the repository is empty
      */
     public Collection<Movie> getAllMovies() throws RepositoryException {
         Collection<Movie> resultList = repository.values();
@@ -72,7 +74,8 @@ public class MovieRepository {
      * Returns the <code>Movie</code> to which the specified Id is mapped, or <code>null</code> if the repository contains no mapping for the key.
      * @param id        The ID whose associated movie is to be returned
      * @return Returns the <strong>movie</strong> to which the specified ID is mapped, or <code>null</code> if the repository contains no mapping for the key.
-     * @throws MovieException
+     * @throws MovieException if there is not even a movie with the entered ID
+     * @throws RepositoryException if the repository is empty
      */
     public Movie getMovie(int id) throws MovieException, RepositoryException {
         if(repository.isEmpty()){
@@ -87,7 +90,8 @@ public class MovieRepository {
      * Returns a <code>List<Movie></code> which contains all the movies that match the searched title. If this list is empty throws a <code>MovieException</code>
      * @param title     The title to be searched
      * @return Returns a <code>List<Movie></code> which contains all the movies that match the searched title.
-     * @throws MovieException
+     * @throws MovieException if there is not even a movie with the entered title
+     * @throws RepositoryException if the repository is empty
      */
     public List<Movie> getMovieByTitle(String title) throws MovieException, RepositoryException {
         if(repository.isEmpty()){
@@ -106,7 +110,8 @@ public class MovieRepository {
      * Returns a <code>List<Movie></code> which contains all the movies that match the searched director. If this list is empty throws a <code>MovieException</code>
      * @param director     The director to be searched
      * @return Returns a <code>List<Movie></code> which contains all the movies that match the searched director.
-     * @throws MovieException
+     * @throws MovieException if there is not even a movie with the entered director
+     * @throws RepositoryException if the repository is empty
      */
     public List<Movie> getMovieByDirector(String director) throws MovieException, RepositoryException {
         if(repository.isEmpty()){
@@ -124,7 +129,8 @@ public class MovieRepository {
     /**
      * Removes the movie corresponding to the inserted ID
      * @param id        The ID whose associated movie is to be removed
-     * @throws MovieException
+     * @throws MovieException if there is not even a movie with the entered ID
+     * @throws RepositoryException if the repository is empty
      */
     public void removeMovie(int id) throws MovieException, RepositoryException {
         if(repository.isEmpty()){
@@ -138,9 +144,9 @@ public class MovieRepository {
      * Updates the movie corresponding to the inserted ID
      * @param id        The ID whose associated movie is to be removed
      * @param movie     The Movie with the fields to be update
-     * @throws MovieException
-     * @throws RepositoryException
-     * @throws FieldsException
+     * @throws MovieException if there is not even a movie with the entered ID
+     * @throws RepositoryException if the repository is empty
+     * @throws FieldsException if the title or director fields are null or empty or blank
      */
     public void updateMovie(int id, Movie movie) throws MovieException, RepositoryException, FieldsException {
         if (repository.isEmpty()) {

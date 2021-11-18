@@ -25,6 +25,13 @@ public class Movie {
         this.director = director;
     }
 
+    public Movie(String title, String director, int id) {
+        this.ID = id;
+        this.title = title;
+        this.director = director;
+    }
+
+
     public int getId() {
         return ID;
     }
