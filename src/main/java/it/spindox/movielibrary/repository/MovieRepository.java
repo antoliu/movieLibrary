@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,6 +53,7 @@ public class MovieRepository {
     public void checkFields(Movie movie) throws FieldsException {
         String title = movie.getTitle();
         String director = movie.getDirector();
+        //Check if the fields of the movie are null, blank or empty. If yes throws an Exception
         if(!StringUtils.isNotBlank(title) || !StringUtils.isNotBlank(director)){
             throw new FieldsException(ErrorType.TITLE_OR_DIRECTOR_NOT_VALID, HttpStatus.BAD_REQUEST);
         }
@@ -97,6 +97,7 @@ public class MovieRepository {
         if(repository.isEmpty()){
             throw new RepositoryException(ErrorType.EMPTY_REPOSITORY, HttpStatus.NOT_FOUND);
         }
+        //Filters all movies in repository which contains the entered string - to lowerCase is for ignore upper and lower case letters
         List<Movie> movieList = repository.values().stream()
                 .filter(m -> m.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
@@ -117,6 +118,7 @@ public class MovieRepository {
         if(repository.isEmpty()){
             throw new RepositoryException(ErrorType.EMPTY_REPOSITORY, HttpStatus.NOT_FOUND);
         }
+        //Filters all movies in repository which contains the entered string - to lowerCase is for ignore upper and lower case letters
         List<Movie> movieList = repository.values().stream()
                 .filter(m -> m.getDirector().toLowerCase().contains(director.toLowerCase()))
                 .collect(Collectors.toList());
@@ -158,9 +160,11 @@ public class MovieRepository {
         }
         String newTitle = movie.getTitle();
         String newDirector = movie.getDirector();
+        //Check if newTitle is null, empty or blank. If yes throws an Exception
         if (StringUtils.isBlank(newTitle)){
             throw new FieldsException(ErrorType.TITLE_NOT_VALID, HttpStatus.BAD_REQUEST);
         }
+        //Check if newDirector is null, empty or blank. If yes throws an Exception
         if(StringUtils.isBlank(newDirector)) {
             throw new FieldsException(ErrorType.DIRECTOR_NOT_VALID, HttpStatus.BAD_REQUEST);
         }
