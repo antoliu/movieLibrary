@@ -5,6 +5,7 @@ import it.spindox.movielibrary.exceptions.MovieException;
 import it.spindox.movielibrary.exceptions.RepositoryException;
 import it.spindox.movielibrary.model.ErrorType;
 import it.spindox.movielibrary.model.Movie;
+import it.spindox.movielibrary.repository.IDatabaseRepository;
 import it.spindox.movielibrary.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,8 @@ import java.util.List;
 @Service
 public class LibraryService {
 
-
+    @Autowired
+    private IDatabaseRepository dbRepository;
 
     @Autowired
     private MovieRepository repository;
@@ -45,6 +47,7 @@ public class LibraryService {
      * @throws FieldsException if the title or the director fields are null or empty or blank.
      */
     public ResponseEntity<String> addMovie(Movie movie) throws FieldsException {
+        dbRepository.save(movie);
         repository.checkFields(movie);
         repository.addMovie(movie);
         return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);

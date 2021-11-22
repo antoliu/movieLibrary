@@ -13,13 +13,15 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.net.UnknownHostException;
+
 @EnableSwagger2
 @SpringBootApplication
 public class MovielibraryApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(MovielibraryApplication.class, args);
+
 	}
 
 	@Bean

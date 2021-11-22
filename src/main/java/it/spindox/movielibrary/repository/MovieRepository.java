@@ -41,7 +41,7 @@ public class MovieRepository {
      */
     public void addMovie(Movie movie) {
         int ID = generateID();
-        movie.setId(ID);
+//        movie.setId(ID);
         this.repository.put(ID, movie);
     }
 

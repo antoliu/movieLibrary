@@ -11,12 +11,14 @@ public enum ErrorType {
     DIRECTOR_NOT_VALID(112, "Director field cannot be empty or null"),
     EMPTY_FIELD(113, "The list of movies cannot be empty"),
 
-    EMPTY_REPOSITORY(120, "The repository is empty");
+    EMPTY_REPOSITORY(120, "The repository is empty"),
+
+    MOVIE_NOT_VALID(130, "The body request is not valid. It should contain a movie");
 
     private final int value;
     private final String message;
 
-    private ErrorType(int value, String message) {
+    ErrorType(int value, String message) {
         this.value = value;
         this.message = message;
     }

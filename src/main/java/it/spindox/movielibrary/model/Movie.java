@@ -1,11 +1,20 @@
 package it.spindox.movielibrary.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+
+@Document("movies")
 public class Movie {
 
-    private int ID;
+    @Id
+    private String ID;
+
+    @NotBlank(message = "Movie title cannot be empty or null")
     private String title;
+
+    @NotBlank(message = "Movie director cannot be empty or null")
     private String director;
     /*private String genre;
     private String year;*/
@@ -25,18 +34,18 @@ public class Movie {
         this.director = director;
     }
 
-    public Movie(String title, String director, int id) {
+    public Movie(String id, String title, String director) {
         this.ID = id;
         this.title = title;
         this.director = director;
     }
 
 
-    public int getId() {
+    public String getId() {
         return ID;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.ID = id;
     }
 
