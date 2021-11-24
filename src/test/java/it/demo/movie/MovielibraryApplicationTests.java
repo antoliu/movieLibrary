@@ -1,4 +1,4 @@
-package it.spindox.movielibrary;
+package it.demo.movie;
 
 
 import org.junit.jupiter.api.Test;

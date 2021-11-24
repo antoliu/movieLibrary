@@ -1,4 +1,4 @@
-package it.spindox.movielibrary.exceptions;
+package it.demo.movie.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

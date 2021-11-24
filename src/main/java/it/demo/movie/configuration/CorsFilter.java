@@ -1,4 +1,4 @@
-package it.spindox.movielibrary.configuration;
+package it.demo.movie.configuration;
 
 import org.springframework.stereotype.Component;
 

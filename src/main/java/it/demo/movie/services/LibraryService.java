@@ -1,12 +1,12 @@
-package it.spindox.movielibrary.services;
+package it.demo.movie.services;
 
-import it.spindox.movielibrary.exceptions.FieldsException;
-import it.spindox.movielibrary.exceptions.MovieException;
-import it.spindox.movielibrary.exceptions.RepositoryException;
-import it.spindox.movielibrary.model.ErrorType;
-import it.spindox.movielibrary.model.Movie;
-import it.spindox.movielibrary.repository.IDatabaseRepository;
-import it.spindox.movielibrary.repository.MovieRepository;
+import it.demo.movie.exceptions.MovieException;
+import it.demo.movie.exceptions.RepositoryException;
+import it.demo.movie.model.ErrorType;
+import it.demo.movie.exceptions.FieldsException;
+import it.demo.movie.model.Movie;
+import it.demo.movie.repository.IDatabaseRepository;
+import it.demo.movie.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

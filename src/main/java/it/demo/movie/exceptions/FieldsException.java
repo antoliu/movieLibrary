@@ -1,12 +1,15 @@
-package it.spindox.movielibrary.exceptions;
+package it.demo.movie.exceptions;
 
-import it.spindox.movielibrary.model.ErrorType;
+import it.demo.movie.model.ErrorType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @Data
-@EqualsAndHashCode
+@Getter
+@Setter
 public class FieldsException extends Exception {
 
     private int code;

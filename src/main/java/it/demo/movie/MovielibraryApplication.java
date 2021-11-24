@@ -1,4 +1,4 @@
-package it.spindox.movielibrary;
+package it.demo.movie;
 
 import com.google.common.collect.Sets;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +12,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.net.UnknownHostException;
 
 @EnableSwagger2
 @SpringBootApplication

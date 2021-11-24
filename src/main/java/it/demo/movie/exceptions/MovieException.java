@@ -1,36 +1,37 @@
-package it.spindox.movielibrary.exceptions;
+package it.demo.movie.exceptions;
 
-import it.spindox.movielibrary.model.ErrorType;
+
+import it.demo.movie.model.ErrorType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 @Data
 @EqualsAndHashCode
-public class RepositoryException extends Exception {
+public class MovieException extends Exception {
 
     private int code;
     private String message;
     private HttpStatus status;
 
-    public RepositoryException(ErrorType error, HttpStatus status){
+    public MovieException(ErrorType error, HttpStatus status){
         this.code = error.value();
         this.message = error.getMessage();
         this.status = status;
     }
 
-    public RepositoryException(String message) {
+    public MovieException(String message) {
         super(message);
         this.message = message;
     }
 
-    public RepositoryException(ErrorType error, String message){
+    public MovieException(ErrorType error, String message){
         super(message);
         this.code = error.value();
         this.message = message;
     }
 
-    public RepositoryException(ErrorType error, String message, HttpStatus status){
+    public MovieException(ErrorType error, String message, HttpStatus status){
         super(message);
         this.code = error.value();
         this.message = message;

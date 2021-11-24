@@ -1,8 +1,10 @@
-package it.spindox.movielibrary.repository;
+package it.demo.movie.repository;
 
-import it.spindox.movielibrary.exceptions.*;
-import it.spindox.movielibrary.model.ErrorType;
-import it.spindox.movielibrary.model.Movie;
+import it.demo.movie.exceptions.FieldsException;
+import it.demo.movie.exceptions.MovieException;
+import it.demo.movie.exceptions.RepositoryException;
+import it.demo.movie.model.ErrorType;
+import it.demo.movie.model.Movie;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;

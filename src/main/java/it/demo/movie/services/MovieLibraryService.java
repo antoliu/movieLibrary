@@ -1,11 +1,11 @@
-package it.spindox.movielibrary.services;
+package it.demo.movie.services;
 
-import it.spindox.movielibrary.exceptions.FieldsException;
-import it.spindox.movielibrary.exceptions.MovieException;
-import it.spindox.movielibrary.exceptions.RepositoryException;
-import it.spindox.movielibrary.model.ErrorType;
-import it.spindox.movielibrary.model.Movie;
-import it.spindox.movielibrary.repository.IDatabaseRepository;
+import it.demo.movie.exceptions.FieldsException;
+import it.demo.movie.exceptions.MovieException;
+import it.demo.movie.exceptions.RepositoryException;
+import it.demo.movie.model.ErrorType;
+import it.demo.movie.model.Movie;
+import it.demo.movie.repository.IDatabaseRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ public class MovieLibraryService {
 
     @Autowired
     private IDatabaseRepository repository;
+
 
     /**
      * Returns a <code>Response Entity</code> with an <code>HttpStatus</code> and a <code>Collection</code> of movies.
@@ -106,6 +107,21 @@ public class MovieLibraryService {
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
 
+    //TODO documentazione
+    public ResponseEntity<Collection<Movie>> getMovieByYear(long year) throws MovieException, RepositoryException, FieldsException {
+        if (repository.count() == 0) {
+            throw new RepositoryException(ErrorType.EMPTY_REPOSITORY, HttpStatus.NOT_FOUND);
+        }
+        if(year < 1900 || year > 2050){
+            throw new FieldsException(ErrorType.YEAR_NOT_VALID, HttpStatus.BAD_REQUEST);
+        }
+        List<Movie> movieList = repository.findByYear(year);
+        if(movieList.isEmpty()){
+            throw new MovieException(ErrorType.YEAR_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(movieList, HttpStatus.OK);
+    }
+
     /**
      * Add a movie to the repository and returns a <code>Response Entity</code> with an <code>HttpStatus</code>.
      * <p>
@@ -114,15 +130,9 @@ public class MovieLibraryService {
      *
      * @param movie The movie to be insert
      * @return A Response Entity with <strong>confirmation message</strong>
-     * @throws FieldsException if the title or the director fields are null or empty or blank.
      */
-    public ResponseEntity<String> addMovie(Movie movie) throws FieldsException {
-        if(movie == null){
-            throw new FieldsException(ErrorType.MOVIE_NOT_VALID, HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> addMovie(Movie movie) {
         repository.save(movie);
-        //repository.checkFields(movie);
-        //repository.addMovie(movie);
         return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);
     }
 
@@ -152,13 +162,13 @@ public class MovieLibraryService {
      *
      * @param id The ID whose associated movie is to be removed
      * @return Response Entity with <strong>confirmation message</strong> or, if list is empty, an <strong>error message</strong>.
-     * @throws MovieException      if there is not even a movie with the entered ID
-     * @throws RepositoryException if the repository is empty
      */
-    public ResponseEntity<String> deleteMovie(int id) throws MovieException, RepositoryException {
-//            repository.removeMovie(id);
-//            return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);
-        return null;
+    public ResponseEntity<String> deleteMovie(String id) throws MovieException {
+        if(!repository.existsById(id)){
+            throw new MovieException(ErrorType.MOVIE_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+        repository.deleteById(id);
+        return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);
     }
 
     /**
@@ -169,19 +179,19 @@ public class MovieLibraryService {
      *
      * @param id    The ID whose associated movie is to be removed
      * @param movie The Movie with the fields to be update
-     * @param patch A flag to check if is a partial, <code>(patch=true)</code>, or total, <code>(patch=false)</code>, update
      * @return A Response Entity with <strong>confirmation message</strong> or, if list is empty, an <strong>error message</strong>.
      * @throws MovieException      if there is not even a movie with the entered ID
-     * @throws RepositoryException if the repository is empty
-     * @throws FieldsException     if the title or director fields are null or empty or blank
      */
-    public ResponseEntity<String> updateMovie(int id, Movie movie, boolean patch) throws MovieException, FieldsException, RepositoryException {
-//            if(!patch){
-//                repository.checkFields(movie);
-//            }
-//            repository.updateMovie(id, movie);
-//            return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);
-        return null;
+    public ResponseEntity<String> updateMovie(String id, Movie movie) throws MovieException {
+        if(!repository.existsById(id)){
+            throw new MovieException(ErrorType.MOVIE_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+        Optional<Movie> element = repository.findById(id);
+        Movie oldMovie = element.get();
+        oldMovie.setTitle(movie.getTitle());
+        oldMovie.setDirector(movie.getDirector());
+        repository.save(oldMovie);
+        return new ResponseEntity<>("CONFIRM: Operation Done", HttpStatus.OK);
     }
 
 }
