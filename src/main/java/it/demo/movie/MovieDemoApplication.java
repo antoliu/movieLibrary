@@ -15,10 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-public class MovielibraryApplication {
+public class MovieDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MovielibraryApplication.class, args);
+		SpringApplication.run(MovieDemoApplication.class, args);
 
 	}
 
@@ -26,7 +26,7 @@ public class MovielibraryApplication {
 	public Docket swaggerConfiguration(){
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("it.spindox.movielibrary"))
+				.apis(RequestHandlerSelectors.basePackage("it.demo.movie"))
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(this.apiInfo())

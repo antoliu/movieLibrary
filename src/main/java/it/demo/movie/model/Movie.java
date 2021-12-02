@@ -1,7 +1,9 @@
 package it.demo.movie.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +13,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode
+@NotNull
 @Document("movies")
 public class Movie implements Serializable {
 
@@ -30,16 +34,6 @@ public class Movie implements Serializable {
     @Range(min = 1900, max = 2050, message = "Movie release year should be from 1900 to 2050")
     private long year;
 
-    public Movie() {
-    }
-
-    public Movie(String title, String director, Genre genre, long year) {
-        this.title = title;
-        this.director = director;
-        this.genre = genre;
-        this.year = year;
-    }
-
     public Movie(String title, String director) {
         this.title = title;
         this.director = director;
@@ -49,5 +43,12 @@ public class Movie implements Serializable {
         this.ID = id;
         this.title = title;
         this.director = director;
+    }
+
+    public Movie(String title, String director, Genre genre, long year){
+        this.title = title;
+        this.director = director;
+        this.genre = genre;
+        this.year = year;
     }
 }

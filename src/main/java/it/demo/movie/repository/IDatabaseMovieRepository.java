@@ -9,19 +9,23 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IDatabaseRepository extends MongoRepository<Movie, String> {
+public interface IDatabaseMovieRepository extends MongoRepository<Movie, String> {
 
     @Query("{title:{$regex:'?0', $options:i}}")
-    Movie findByTitle(String title);
+    List<Movie> findByTitle(String title);
 
     @Query("{director:{$regex:'?0', $options:i}}")
     List<Movie> findByDirector(String title);
 
-    @Query("{year:{'?0'}")
+    @Query("{year: ?0}")
     List<Movie> findByYear(long year);
 
-    @Query("{genre:{'?0'}")
+    @Query("{genre:'?0'}")
     List<Movie> findByGenre(Genre genre);
+
+
+    @Query(value="{genre:'?0'}", fields="{'?1'}")
+    List<Movie> findByFields(Genre genre, String fields);
 
 
 }

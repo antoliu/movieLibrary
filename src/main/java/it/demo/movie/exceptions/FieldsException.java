@@ -1,25 +1,25 @@
 package it.demo.movie.exceptions;
 
 import it.demo.movie.model.ErrorType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @Data
 @Getter
-@Setter
+@AllArgsConstructor
 public class FieldsException extends Exception {
 
     private int code;
     private String message;
     private HttpStatus status;
 
-    public FieldsException(ErrorType error, HttpStatus status){
+    public FieldsException(ErrorType error){
         this.code = error.value();
         this.message = error.getMessage();
-        this.status = status;
+        this.status = error.getStatus();
     }
 
     public FieldsException(String message) {
@@ -33,11 +33,5 @@ public class FieldsException extends Exception {
         this.message = message;
     }
 
-    public FieldsException(ErrorType error, String message, HttpStatus status){
-        super(message);
-        this.code = error.value();
-        this.message = message;
-        this.status = status;
-    }
 }
 

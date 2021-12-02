@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %-50c{1.} - %msg%n
+        </Property>
+        <Property name="LOG_DIR">
+            logs/
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile
+                name="rollingFile"
+                fileName="${LOG_DIR}/moviedemo.log"
+                filePattern="${LOG_DIR}/moviedemo.%i.log.zip"
+                ignoreExceptions="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="rollingFile"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

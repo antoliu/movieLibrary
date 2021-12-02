@@ -63,40 +63,39 @@ public class ErrorResponse implements Serializable {
         return sb.toString();
     }
 
-
         @JsonIgnore
         protected String toIndentedString(Object o) {
             return o == null ? "null" : o.toString().replace("\n", "\n ");
         }
 
-        @JsonIgnore
-        public void setMessage(String message) {
-            if (StringUtils.isNotBlank(message)) {
-                this.messages = new LinkedList<>();
-                this.messages.add(message);
-            }
+    @JsonIgnore
+    public void setMessage(String message) {
+        if (StringUtils.isNotBlank(message)) {
+            this.messages = new LinkedList<>();
+            this.messages.add(message);
         }
+    }
 
-        @JsonIgnore
-        public String listToString(List<String> messages){
-            StringBuilder sb = new StringBuilder();
-            for(String s: messages){
-                sb.append("\n" + s);
-            }
-            return sb.toString();
+    @JsonIgnore
+    public String listToString(List<String> messages){
+        StringBuilder sb = new StringBuilder();
+        for(String s: messages){
+            sb.append("\n" + s);
         }
+        return sb.toString();
+    }
 
-        @JsonIgnore
-        public String getCommonField() {
-            StringBuilder sb = new StringBuilder();
-            //sb.append(" localDateTime: ").append(this.toIndentedString(this.localDateTime != null ? DateUtils.getFromLocalDateTimeDefault(this.localDateTime) : null)).append("\n");
-            sb.append(" localDateTime: ").append(this.localDateTime).append("\n");
-            sb.append(" code: ").append(this.toIndentedString(this.code)).append("\n");
-            sb.append(" messages: ").append(listToString(this.messages));
-            //sb.append(" messages: ").append(this.toIndentedString(Utility.convertListInString(this.messages, "{", "}"))).append("\n");
-            //sb.append(" errorSourceSystem: ").append(toIndentedString(this.errorSourceSystem)).append("\n");
-            //sb.append(" errorCode: ").append(toIndentedString(this.errorCode)).append("\n");
-            //sb.append(" exceptionType: ").append(toIndentedString(this.exceptionType)).append("\n");
-            return sb.toString();
-        }
+    @JsonIgnore
+    public String getCommonField() {
+        StringBuilder sb = new StringBuilder();
+        //sb.append(" localDateTime: ").append(this.toIndentedString(this.localDateTime != null ? DateUtils.getFromLocalDateTimeDefault(this.localDateTime) : null)).append("\n");
+        sb.append(" localDateTime: ").append(this.localDateTime).append("\n");
+        sb.append(" code: ").append(this.toIndentedString(this.code)).append("\n");
+        sb.append(" messages: ").append(listToString(this.messages));
+        //sb.append(" messages: ").append(this.toIndentedString(Utility.convertListInString(this.messages, "{", "}"))).append("\n");
+        //sb.append(" errorSourceSystem: ").append(toIndentedString(this.errorSourceSystem)).append("\n");
+        //sb.append(" errorCode: ").append(toIndentedString(this.errorCode)).append("\n");
+        //sb.append(" exceptionType: ").append(toIndentedString(this.exceptionType)).append("\n");
+        return sb.toString();
+    }
 }
